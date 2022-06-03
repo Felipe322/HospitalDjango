@@ -22,10 +22,7 @@ services:
     depends_on:
       - db_django
     ports:
-      - 8000:80
-    volumes:
-      - app_django:/home/ubuntu/aplicaciones/django
-      - ./django:/home/ubuntu/aplicaciones/django
+      - 8080:80
 
 volumes: # Volumenes utilizados.
   db_django:
