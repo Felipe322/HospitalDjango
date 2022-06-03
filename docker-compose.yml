@@ -1,0 +1,32 @@
+version: '3'
+services:
+
+  db_django: ## Servidor Base de Datos Django, MariaDB.
+    image: mariadb
+    container_name: db-hospital
+    restart: always
+    environment:
+      MYSQL_DATABASE: hospital2
+      MYSQL_USER: hospitaluser
+      MYSQL_PASSWORD: "Contraseña7654/(%&/"
+      MYSQL_ROOT_PASSWORD: admin1234
+    volumes:
+      - db_django:/var/lib/mysql3
+    ports:
+      - 127.0.0.1:3320:3306
+
+  app_django: ## Servidor de aplicación de Django.
+    image: alexmau/django_app:V2
+    container_name: hospital
+    restart: always
+    depends_on:
+      - db_django
+    ports:
+      - 8000:80
+    volumes:
+      - app_django:/home/ubuntu/aplicaciones/django
+      - ./django:/home/ubuntu/aplicaciones/django
+
+volumes: # Volumenes utilizados.
+  db_django:
+  app_django:

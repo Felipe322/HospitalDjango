@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block titulo %}
+    Eliminar paciente
+{% endblock titulo %}
+
+{% block contenido %}
+
+<form method="post">
+    {% csrf_token %}
+    <p>Quieres eliminar el paciente "{{ object }}"?</p>
+    <input class="btn btn-danger" type="submit" value="Sí, si quiero">
+    <a href="{% url 'pacientes:lista' %}" class="btn btn-secondary" >Mejor no</a>
+</form>
+
+{% endblock contenido %}

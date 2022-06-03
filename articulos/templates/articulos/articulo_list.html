@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Lista de artículos{% endblock titulo %}
+    
+{% block contenido %}
+<h1>Lista de Artículos</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Clave</th>
+            <th>Artículo</th>
+            <th>Precio</th>
+            <th>Existencia</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for articulo in object_list %}
+        <tr>
+            <td>{{articulo.clave}}</td>
+            <td>{{articulo.nombre}}</td>
+            <td>${{articulo.precio}}</td>
+            <td>{{articulo.stock}}</td>
+            <td>
+                
+                {% if articulo.stock > 0 %}
+                    <a title="Comprar" class="btn btn-warning" href="{% url 'articulos:comprar' articulo.id %}">
+                        <i class="fas fa-cart-arrow-down"></i>
+                    </a>
+                {% else %}
+                    <div class="alert alert-warning">Producto agotado</div>
+                {% endif %}
+                    
+                <a title="Elimina paciente" class="btn btn-danger" href="">
+                    <i class="far fa-trash-alt"></i>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+{% endblock contenido %}
+    
